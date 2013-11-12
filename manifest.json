@@ -1,0 +1,28 @@
+{
+   "name": "TranslateNow",
+   "version": "1.0", 
+   "description": "Translate now !", 
+   "manifest_version": 2,
+   "icons": {
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+   },
+   "browser_action": {
+      "default_icon": "icons/icon19.png", 
+      "default_popup": "page_action.html",
+      "default_title": "Translate Now!"
+   },
+   "background": {
+       "page": "background.html"
+   },
+   "content_scripts": [{
+      "all_frames": true,
+      "css": [ "content.css" ],
+      "js": [ "content.js" ],
+      "matches": [ "\u003Call_urls\u003E" ]
+   }],
+   "content_security_policy": "script-src 'self' https://translate.google.com.tw https://clients5.google.com; object-src 'self'",
+   "permissions": [ "tabs", "http://*/*", "https://*/*" ]
+}

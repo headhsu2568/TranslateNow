@@ -14,7 +14,9 @@
         xhr.send();
     };
     var Sanitized = function(message) {
+        console.log(message);
         while(message.match(/,,/)) message = message.replace(/,,/g, ',false,');
+        while(message.match(/\[,/)) message = message.replace(/\[,/g, '[false,');
         message = JSON.parse(message);
         var ret = {
             translate: null, 

@@ -47,7 +47,6 @@
 			range.insertNode(lookup_target);
 
 			var cor = getCoordination(lookup_target);
-			console.log(cor);
 			var top_offset = cor.top + cor.height + 10;
 			var left_offset = cor.left + cor.width/2 - 50;
 			style = document.createElement('style');

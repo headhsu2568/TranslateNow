@@ -19,7 +19,7 @@
    },
    "content_scripts": [{
       "all_frames": true,
-      "css": [ "content.css" ],
+      "css": [],
       "js": [ "content.js" ],
       "matches": [ "\u003Call_urls\u003E" ]
    }],

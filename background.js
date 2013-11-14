@@ -1,13 +1,13 @@
 (function () {
     var ts = 0;
-    var Lookup = function(message, callback) {
+    var Lookup = function(message, callback, sendResponse) {
         var xhr_ts = ++ts;
         var xhr = new XMLHttpRequest();
         var url = 'http://translate.google.com.tw/translate_a/t?client=t&sl=auto&tl=zh-TW&hl=zh-TW&sc=2&ie=UTF-8&oe=UTF-8&oc=2&prev=btn&ssel=0&tsel=0&q=';
         url += encodeURIComponent(message);
         xhr.onreadystatechange = function() {
             if(xhr.readyState == 4 && xhr.status == 200) {
-                if(xhr_ts === ts) callback(Sanitized(xhr.responseText));
+                if(xhr_ts === ts) callback(Sanitized(xhr.responseText), sendResponse);
             }
         };
         xhr.open('GET', url, true);
@@ -24,7 +24,7 @@
         if(typeof message[1] === 'object') ret.words = message[1];
         return ret;
     };
-    var SendPopup = function(message) {
+    var SendPopup = function(message, sendResponse) {
         var views = chrome.extension.getViews({
             type: 'popup'
         });
@@ -59,12 +59,14 @@
             }
         }
     };
-    var SendWebpage = function(message) {
+    var SendWebpage = function(message, sendResponse) {
+        sendResponse(message);
     };
-    var ReceiveMessage = function(message, sender) {
+    var ReceiveMessage = function(message, sender, sendResponse) {
         console.log('lookup: "' + message.lookup + '" from: ' + message.type);
-        if(message.type === 'pp') Lookup(message.lookup, SendPopup);
-        else if(message.type === 'wp') Lookup(message.lookup, SendWebpage);
+        if(message.type === 'pp') Lookup(message.lookup, SendPopup, sendResponse);
+        else if(message.type === 'wp') Lookup(message.lookup, SendWebpage, sendResponse);
+        return true;
     };
     chrome.extension.onMessage.addListener(ReceiveMessage);
 })();

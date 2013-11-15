@@ -17,7 +17,7 @@
 			}
 		}
 	};
-	var getCoordination = function(element) {
+	var GetCoordination = function(element) {
 		var cor = {top: 0, left: 0, height: 0, width: 0};
 		cor.height = element.offsetHeight;
 		cor.width = element.offsetWidth;
@@ -46,7 +46,7 @@
 			range.extractContents();
 			range.insertNode(lookup_target);
 
-			var cor = getCoordination(lookup_target);
+			var cor = GetCoordination(lookup_target);
 			var top_offset = cor.top + cor.height + 10;
 			var left_offset = cor.left + cor.width/2 - 50;
 			style = document.createElement('style');

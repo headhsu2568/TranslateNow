@@ -4,7 +4,7 @@
 	var Keydown = function(key) {
 		if(key.keyCode === 18 && flag === 0) flag = 1;
 		else if(key.keyCode === 27) ClearLookupResult();
-	}
+	};
 	var Keyup = function(key) {
 		lookup = window.getSelection();
 		if(key.keyCode === 18 && flag === 1) {
@@ -30,7 +30,7 @@
 		cor.top += document.body.offsetTop;
 		cor.left += document.body.offsetLeft;
 		return cor;
-	}
+	};
 	var ClearLookupResult = function() {
 		var lookup_target = document.getElementById('lookup-target');
 		if(lookup_target !== null) lookup_target.outerHTML = lookup_target.innerHTML;
@@ -38,7 +38,7 @@
 		if(lookup_result !== null && lookup_result.parentElement) lookup_result.parentElement.removeChild(lookup_result);
 		var style = document.getElementById('lookup-result-css');
 		if(style !== null && style.parentElement) style.parentElement.removeChild(style);
-	}
+	};
 	var HandleLookupResult = function(message) {
 		if(lookup.type === 'Range') {
 			ClearLookupResult();
@@ -64,8 +64,10 @@
 									'position: absolute;' + 
 									'border: solid 1px #ffa500;' + 
 									'background-color: #fffacd;' + 
-									'padding-left: 12px;' + 
-									'padding-top: 12px;' + 
+									'padding-left: 10px;' + 
+									'padding-right: 5px;' + 
+									'padding-top: 10px;' + 
+									'padding-bottom: 5px;' + 
 									'z-index: 2568;' + 
 									'top: ' + top_offset + 'px;' + 
 									'left: ' + left_offset + 'px;' + 
@@ -89,6 +91,18 @@
 									'position: absolute;' + 
 									'top: -19px;' +
 									'left: 40px;' +
+								'}' + 
+								'.lookup-result .close {' + 
+									'position: absolute;' + 
+									'right: 5px;' + 
+									'top: 5px;' + 
+									'min-width: 13px;' + 
+									'max-width: 13px;' + 
+									'min-height: 13px;' + 
+									'max-height: 13px;' + 
+									'background: url(' + chrome.extension.getURL('icons/glyphicons-halflings.png') + ') -312px 0px;' + 
+									'cursor: pointer;' + 
+									'border: none;' + 
 								'}';
 			var firstNode = document.body.firstChild;
 			document.body.insertBefore(style, firstNode);
@@ -96,14 +110,20 @@
 			var lookup_result = document.createElement('div');
 			lookup_result.id = 'lookup-result';
 			lookup_result.className = 'lookup-result';
+			var close = document.createElement('button');
+			close.className = 'close';
+			close.id = 'lookup-result-close';
 			var arrow = document.createElement('span');
 			arrow.className = 'arrow';
 			var border = document.createElement('span');
 			border.className = 'border';
+			lookup_result.appendChild(close);
             lookup_result.appendChild(arrow);
             lookup_result.appendChild(border);
 			lookup_result.innerHTML += message.translate;
             document.body.insertBefore(lookup_result, firstNode);
+            close = document.getElementById('lookup-result-close');
+            close.addEventListener('click', ClearLookupResult, false);
 		}
 	};
 	window.addEventListener('keyup', Keyup);

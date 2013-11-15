@@ -3,6 +3,7 @@
 	var lookup = null;
 	var Keydown = function(key) {
 		if(key.keyCode === 18 && flag === 0) flag = 1;
+		else if(key.keyCode === 27) ClearLookupResult();
 	}
 	var Keyup = function(key) {
 		lookup = window.getSelection();
@@ -30,17 +31,19 @@
 		cor.left += document.body.offsetLeft;
 		return cor;
 	}
+	var ClearLookupResult = function() {
+		var lookup_target = document.getElementById('lookup-target');
+		if(lookup_target !== null) lookup_target.outerHTML = lookup_target.innerHTML;
+		var lookup_result = document.getElementById('lookup-result');
+		if(lookup_result !== null && lookup_result.parentElement) lookup_result.parentElement.removeChild(lookup_result);
+		var style = document.getElementById('lookup-result-css');
+		if(style !== null && style.parentElement) style.parentElement.removeChild(style);
+	}
 	var HandleLookupResult = function(message) {
 		if(lookup.type === 'Range') {
-			var lookup_target = document.getElementById('lookup-target');
-			if(lookup_target !== null) lookup_target.outerHTML = lookup_target.innerHTML;
-			var lookup_result = document.getElementById('lookup-result');
-			if(lookup_result !== null && lookup_result.parentElement) lookup_result.parentElement.removeChild(lookup_result);
-			var style = document.getElementById('lookup-result-css');
-			if(style !== null && style.parentElement) style.parentElement.removeChild(style);
-
+			ClearLookupResult();
 			var range = lookup.getRangeAt(0);
-			lookup_target = document.createElement('span');
+			var lookup_target = document.createElement('span');
 			lookup_target.id = 'lookup-target';
 			lookup_target.innerHTML = range.toString();
 			range.extractContents();
@@ -49,7 +52,7 @@
 			var cor = GetCoordination(lookup_target);
 			var top_offset = cor.top + cor.height + 10;
 			var left_offset = cor.left + cor.width/2 - 50;
-			style = document.createElement('style');
+			var style = document.createElement('style');
 			style.id = 'lookup-result-css';
 			style.innerHTML = '.lookup-result {' +
 									'text-align: left;' + 
@@ -90,7 +93,7 @@
 			var firstNode = document.body.firstChild;
 			document.body.insertBefore(style, firstNode);
 
-			lookup_result = document.createElement('div');
+			var lookup_result = document.createElement('div');
 			lookup_result.id = 'lookup-result';
 			lookup_result.className = 'lookup-result';
 			var arrow = document.createElement('span');

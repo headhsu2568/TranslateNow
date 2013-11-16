@@ -1,0 +1,14 @@
+button {
+    min-width: 16px;
+	max-width: 16px;
+	min-height: 16px;
+	max-height: 16px;
+	cursor: pointer;
+	border: none;
+}
+.save {
+	background: url('icons/glyphicons-halflings.png') -288px 0px;
+}
+.reload {
+	background: url('icons/glyphicons-halflings.png') -216px -22px;
+}		

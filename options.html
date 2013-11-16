@@ -2,7 +2,24 @@
 <html>
 	<head>
     	<title></title>
+    	<link rel="stylesheet" type="text/css" href="options.css">
   	</head>
   	<body>
+  		Source Language:
+  		<select id="sl">
+  			<option id="sl-auto" value="auto">Auto</option>
+  			<option id="sl-zh-tw" value="zh-TW">Traditional Chinese</option>
+  			<option id="sl-en" value="en">English</option>
+  		</select>
+  		<br/><br/>
+  		Target Language:
+  		<select id="tl">
+  			<option id="tl-zh-tw" value="zh-TW">Traditional Chinese</option>
+  			<option id="tl-en" value="en">English</option>
+  		</select>
+  		<br/><br/>
+  		<button class="save" id="save"></button>
+  		<button class="reload" id="reload"></button>
+  		<script src="options.js"></script>
   	</body>
 </html>

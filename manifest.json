@@ -26,6 +26,6 @@
    "web_accessible_resources": [
       "icons/glyphicons-halflings.png"
    ], 
-   "content_security_policy": "script-src 'self' https://translate.google.com.tw https://clients5.google.com; object-src 'self'",
+   "content_security_policy": "script-src 'self' https://translate.google.com.tw; object-src 'self'",
    "permissions": [ "tabs", "http://*/*", "https://*/*" ]
 }

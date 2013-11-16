@@ -3,8 +3,11 @@
     var Lookup = function(message, callback, sendResponse) {
         var xhr_ts = ++ts;
         var xhr = new XMLHttpRequest();
-        var url = 'http://translate.google.com.tw/translate_a/t?client=t&sl=auto&tl=zh-TW&hl=zh-TW&sc=2&ie=UTF-8&oe=UTF-8&oc=2&prev=btn&ssel=0&tsel=0&q=';
-        url += encodeURIComponent(message);
+        var url = 'http://translate.google.com.tw/translate_a/t?client=t&';
+        url += 'sl=' + localStorage['sl'] + '&';
+        url += 'tl=' + localStorage['tl'] + '&';
+        url += 'hl=zh-TW&sc=2&ie=UTF-8&oe=UTF-8&oc=2&prev=btn&ssel=0&tsel=0&';
+        url += 'q=' + encodeURIComponent(message);
         xhr.onreadystatechange = function() {
             if(xhr.readyState == 4 && xhr.status == 200) {
                 if(xhr_ts === ts) callback(Sanitized(xhr.responseText), sendResponse);

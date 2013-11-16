@@ -10,5 +10,11 @@ button {
 	background: url('icons/glyphicons-halflings.png') -288px 0px;
 }
 .reload {
-	background: url('icons/glyphicons-halflings.png') -216px -22px;
-}		
+	background: url('icons/glyphicons-halflings.png') -215px -23px;
+}
+.dictionary {
+	background: url('icons/glyphicons-halflings.png') -47px -47px;	
+}
+.default {
+	background: url('icons/glyphicons-halflings.png') -383px 1px;
+}

@@ -1,7 +1,7 @@
 TranslateNow
 ============
 
-#### v1.2
+#### v1.3
 
 A Chrome extension used to translate words immediately
 

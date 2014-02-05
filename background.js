@@ -1,16 +1,28 @@
 (function () {
     var ts = 0;
-    var Lookup = function(message, callback, sendResponse) {
+    var Lookup = function(message, targetLanguage, callback, sendResponse) {
         var xhr_ts = ++ts;
         var xhr = new XMLHttpRequest();
+        // sl in url is known as source language; sl in code is known as secondary language
         var url = 'http://translate.google.com.tw/translate_a/t?client=t&';
-        url += 'sl=' + localStorage['sl'] + '&';
-        url += 'tl=' + localStorage['tl'] + '&';
+        url += 'sl=auto&';
+        url += 'tl=' + targetLanguage + '&';
         url += 'hl=zh-TW&sc=2&ie=UTF-8&oe=UTF-8&oc=2&prev=btn&ssel=0&tsel=0&';
         url += 'q=' + encodeURIComponent(message);
         xhr.onreadystatechange = function() {
             if(xhr.readyState == 4 && xhr.status == 200) {
-                if(xhr_ts === ts) callback(Sanitized(xhr.responseText), sendResponse);
+                if(xhr_ts === ts) {
+                    var result = Sanitized(xhr.responseText);
+                    console.log(result);
+                    if(result.translate === message) {
+                        if(targetLanguage === localStorage['pl']) {
+                            Lookup(message, localStorage['sl'], callback, sendResponse);
+                            return;
+                        }
+                        else result.translate = 'Oops! No translation data...';
+                    }
+                    callback(result, sendResponse);
+                }
             }
         };
         xhr.open('GET', url, true);
@@ -29,7 +41,7 @@
         if(typeof message[1] === 'object') ret.words = message[1];
         return ret;
     };
-    var SendPopup = function(message, sendResponse) {
+    var SendPopup = function(message, sendResponse) { // for type: pp
         var views = chrome.extension.getViews({
             type: 'popup'
         });
@@ -64,13 +76,13 @@
             }
         }
     };
-    var SendWebpage = function(message, sendResponse) {
+    var SendWebpage = function(message, sendResponse) { // for type: wp
         sendResponse(message);
     };
     var ReceiveMessage = function(message, sender, sendResponse) {
         console.log('lookup: "' + message.lookup + '" from: ' + message.type);
-        if(message.type === 'pp') Lookup(message.lookup, SendPopup, sendResponse);
-        else if(message.type === 'wp') Lookup(message.lookup, SendWebpage, sendResponse);
+        if(message.type === 'pp') Lookup(message.lookup, localStorage['pl'], SendPopup, sendResponse);
+        else if(message.type === 'wp') Lookup(message.lookup, localStorage['pl'], SendWebpage, sendResponse);
         return true;
     };
     chrome.extension.onMessage.addListener(ReceiveMessage);

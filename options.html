@@ -5,19 +5,20 @@
     	<link rel="stylesheet" type="text/css" href="options.css">
   	</head>
   	<body>
-  		Source Language:
+      Source Language: Auto detect
+      <br/>
+  		Primary Language:
+  		<select id="pl">
+  			<option id="pl-zh-TW" value="zh-TW">Traditional Chinese</option>
+  			<option id="pl-en" value="en">English</option>
+  		</select>
+  		<br/>
+  		Secondary Language:
   		<select id="sl">
-  			<option id="sl-auto" value="auto">Auto</option>
-  			<option id="sl-zh-TW" value="zh-TW">Traditional Chinese</option>
   			<option id="sl-en" value="en">English</option>
+        <option id="sl-zh-TW" value="zh-TW">Traditional Chinese</option>
   		</select>
-  		<br/><br/>
-  		Target Language:
-  		<select id="tl">
-  			<option id="tl-zh-TW" value="zh-TW">Traditional Chinese</option>
-  			<option id="tl-en" value="en">English</option>
-  		</select>
-  		<br/><br/>
+  		<br/>
   		<button class="save" id="save" title="save"></button>
   		<button class="reload" id="reload" title="reload setting"></button>
       <button class="dictionary" id="dictionary" title="back to dictionary page"></button>

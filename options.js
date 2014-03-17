@@ -11,8 +11,8 @@
 		Dictionary();
 	};
 	var Reload = function() {
-		document.getElementById('pl-' + localStorage['pl']).selected = true;
-		document.getElementById('sl-' + localStorage['sl']).selected = true;
+		pl.value = localStorage['pl'];
+		sl.value = localStorage['sl'];
 	};
 	var Dictionary = function() {
 		window.location = 'page_action.html';
